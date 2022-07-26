@@ -11,13 +11,16 @@ split = sample.split(dataset$Salary, SplitRatio = 2/3)
 training_set = subset(dataset, split == TRUE)
 test_set = subset(dataset, split == FALSE)
 
-# Feature Scaling
+# Feature Scaling (not needed here, the algorithm take care of it)
 # training_set = scale(training_set)
 # test_set = scale(test_set)
 
 # Fitting Simple Linear Regression to the Training set
 regressor = lm(formula = Salary ~ YearsExperience,
                data = training_set)
+
+# Type in the console the following command for more details (p-value...):
+# summary(regressor)
 
 # Predicting the Test set results
 y_pred = predict(regressor, newdata = test_set)
@@ -34,6 +37,7 @@ ggplot() +
   ylab('Salary')
 
 # Visualising the Test set results
+#install.packages('ggplot2')
 library(ggplot2)
 ggplot() +
   geom_point(aes(x = test_set$YearsExperience, y = test_set$Salary),
