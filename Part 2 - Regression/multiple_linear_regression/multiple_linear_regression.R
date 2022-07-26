@@ -16,13 +16,55 @@ split = sample.split(dataset$Profit, SplitRatio = 0.8)
 training_set = subset(dataset, split == TRUE)
 test_set = subset(dataset, split == FALSE)
 
-# Feature Scaling
+# Feature Scaling (not needed here, the algorithm take care of it)
 # training_set = scale(training_set)
 # test_set = scale(test_set)
 
 # Fitting Multiple Linear Regression to the Training set
 regressor = lm(formula = Profit ~ .,
                data = training_set)
+# Inspect the model:
+#summary(regressor)
 
 # Predicting the Test set results
 y_pred = predict(regressor, newdata = test_set)
+
+# Check the results
+print(y_pred - test_set['Profit'])
+
+# Building the optimal model using Backward Elimination
+regressor = lm(formula = Profit ~ R.D.Spend + Administration + Marketing.Spend + State,
+               data = dataset)
+# Check p-value for each feature and remove the feature with the highest p-value
+summary(regressor)
+
+# Eliminate the State
+regressor = lm(formula = Profit ~ R.D.Spend + Administration + Marketing.Spend,
+               data = dataset)
+summary(regressor)
+
+# Eliminate the Administration
+regressor = lm(formula = Profit ~ R.D.Spend + Marketing.Spend,
+               data = dataset)
+summary(regressor)
+
+# Notice: Administration has 6% level of significance
+
+# Backward elimination R implementation
+backwardElimination <- function(x, sl) {
+  numVars = length(x)
+  for (i in c(1:numVars)){
+    regressor = lm(formula = Profit ~ ., data = x)
+    maxVar = max(coef(summary(regressor))[c(2:numVars), "Pr(>|t|)"])
+    if (maxVar > sl){
+      j = which(coef(summary(regressor))[c(2:numVars), "Pr(>|t|)"] == maxVar)
+      x = x[, -j]
+    }
+    numVars = numVars - 1
+  }
+  return(summary(regressor))
+}
+
+SL = 0.05
+dataset = dataset[, c(1,2,3,4,5)]
+backwardElimination(training_set, SL)
