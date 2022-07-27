@@ -2,13 +2,14 @@
 
 # Importing the dataset
 dataset = read.csv('Position_Salaries.csv')
+# Remove unrelevent feature (Position)
 dataset = dataset[2:3]
 
-# Splitting the dataset into the Training set and Test set
+# We do not need to split the dataset into the Training set and Test set (we've just 10 obs.)
 # # install.packages('caTools')
 # library(caTools)
 # set.seed(123)
-# split = sample.split(dataset$Salary, SplitRatio = 2/3)
+# split = sample.split(dataset$Salary, SplitRatio = 0.8)
 # training_set = subset(dataset, split == TRUE)
 # test_set = subset(dataset, split == FALSE)
 
@@ -69,10 +70,11 @@ ggplot() +
   ylab('Salary')
 
 # Predicting a new result with Linear Regression
-predict(lin_reg, data.frame(Level = 6.5))
+experience_value = 6.5
+y_pred = predict(lin_reg, data.frame(Level = experience_value))
 
 # Predicting a new result with Polynomial Regression
-predict(poly_reg, data.frame(Level = 6.5,
-                             Level2 = 6.5^2,
-                             Level3 = 6.5^3,
-                             Level4 = 6.5^4))
+y_pred = predict(poly_reg, data.frame(Level = experience_value,
+                             Level2 = experience_value^2,
+                             Level3 = experience_value^3,
+                             Level4 = experience_value^4))
