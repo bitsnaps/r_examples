@@ -19,10 +19,12 @@ dataset = dataset[2:3]
 # Fitting SVR to the dataset
 # install.packages('e1071')
 library(e1071)
+# The default type is "C-classification" for classification
 regressor = svm(formula = Salary ~ .,
                 data = dataset,
                 type = 'eps-regression',
                 kernel = 'radial')
+#summary(regressor)
 
 # Predicting a new result
 y_pred = predict(regressor, data.frame(Level = 6.5))
