@@ -353,3 +353,6 @@ rsconnect/
 # R package: bookdown caching files
 /*_files/
 
+# Mac
+**/.DS_Store
+
