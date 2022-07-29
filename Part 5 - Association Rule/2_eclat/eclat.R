@@ -13,7 +13,8 @@ itemFrequencyPlot(dataset, topN = 10)
 
 # Training Eclat on the dataset
 rules = eclat(data = dataset, parameter = list(support = 0.003, minlen = 2))
-# There is no confidence value for Eclat
+# There is no confidence value for Eclat, and:
+# minlen=2 which means we want to have a different set with at least 2 items mosts frequently purchased together.
 
 # Visualising the results sorted by support level
 inspect(sort(rules, by = 'support')[1:10])
