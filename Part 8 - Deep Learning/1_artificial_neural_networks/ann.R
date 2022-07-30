@@ -24,7 +24,7 @@ test_set = subset(dataset, split == FALSE)
 training_set[-11] = scale(training_set[-11])
 test_set[-11] = scale(test_set[-11])
 
-# Fitting ANN to the Training set
+# Fitting ANN to the Training set (here we h2o cloud service)
 # install.packages('h2o')
 library(h2o)
 h2o.init(nthreads = -1)
