@@ -12,7 +12,7 @@ corpus = VCorpus(VectorSource(dataset_original$Review))
 corpus = tm_map(corpus, content_transformer(tolower))
 corpus = tm_map(corpus, removeNumbers)
 corpus = tm_map(corpus, removePunctuation)
-corpus = tm_map(corpus, removeWords, stopwords())
+corpus = tm_map(corpus, removeWords, stopwords(kind = "en"))
 corpus = tm_map(corpus, stemDocument)
 corpus = tm_map(corpus, stripWhitespace)
 
@@ -21,10 +21,6 @@ dtm = DocumentTermMatrix(corpus)
 dtm = removeSparseTerms(dtm, 0.999)
 dataset = as.data.frame(as.matrix(dtm))
 dataset$Liked = dataset_original$Liked
-
-# Importing the dataset
-dataset = read.csv('Social_Network_Ads.csv')
-dataset = dataset[3:5]
 
 # Encoding the target feature as factor
 dataset$Liked = factor(dataset$Liked, levels = c(0, 1))
@@ -49,3 +45,10 @@ y_pred = predict(classifier, newdata = test_set[-692])
 
 # Making the Confusion Matrix
 cm = table(test_set[, 692], y_pred)
+# In the console type:
+#> cm
+#y_pred
+#0  1
+#0 82 18
+#1 23 77
+# So the precision = (82+77)/(82+77+18+23) = 0.795
