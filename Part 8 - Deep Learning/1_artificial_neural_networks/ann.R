@@ -42,5 +42,6 @@ y_pred = as.vector(y_pred)
 
 # Making the Confusion Matrix
 cm = table(test_set[, 11], y_pred)
+# prediction = (1516+214)/(1516+214+77+193) = 0.865
 
 # h2o.shutdown()

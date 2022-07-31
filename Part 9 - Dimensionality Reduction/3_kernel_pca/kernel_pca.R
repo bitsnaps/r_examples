@@ -38,7 +38,7 @@ y_pred = ifelse(prob_pred > 0.5, 1, 0)
 cm = table(test_set_pca[, 3], y_pred)
 
 # Visualising the Training set results
-install.packages('ElemStatLearn')
+# install.packages('ElemStatLearn')
 library(ElemStatLearn)
 set = training_set_pca
 X1 = seq(min(set[, 1]) - 1, max(set[, 1]) + 1, by = 0.01)
