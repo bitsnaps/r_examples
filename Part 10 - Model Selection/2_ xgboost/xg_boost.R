@@ -23,7 +23,9 @@ test_set = subset(dataset, split == FALSE)
 # Fitting XGBoost to the Training set
 # install.packages('xgboost')
 library(xgboost)
+# nrounds: is the max nbr of iterations
 classifier = xgboost(data = as.matrix(training_set[-11]), label = training_set$Exited, nrounds = 10)
+# the output is the error metric, the lower the better.
 
 # Predicting the Test set results
 y_pred = predict(classifier, newdata = as.matrix(test_set[-11]))
