@@ -46,6 +46,7 @@ cv = lapply(folds, function(x) {
                    kernel = 'radial')
   y_pred = predict(classifier, newdata = test_fold[-3])
   cm = table(test_fold[, 3], y_pred)
+  # (nbr of correct prediction) / (the total nbr of prediction)
   accuracy = (cm[1,1] + cm[2,2]) / (cm[1,1] + cm[2,2] + cm[1,2] + cm[2,1])
   return(accuracy)
 })

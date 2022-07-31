@@ -56,6 +56,8 @@ accuracy = mean(as.numeric(cv))
 library(caret)
 classifier = train(form = Purchased ~ ., data = training_set, method = 'svmRadial')
 classifier
+# Output:
+#The final values used for the model were sigma = 1.327355 and C = 1.
 classifier$bestTune
 
 # Visualising the Training set results
